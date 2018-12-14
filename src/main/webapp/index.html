@@ -17,7 +17,29 @@
 .numberStyle {
     border-style: solid;
     border-width: thick;
-    font-size: 200px;
+    font-size: 210px;
+    margin-top: 0px;
+}
+
+.bingoNumberStyle {
+    border-style: solid;
+    border-width: thick;
+    font-size: 210px;
+    margin-top: 0px;
+    border-color: yellow;
+}
+
+.bingoStyle{
+    background-image: url("/img/crown.jpeg");
+    background-repeat: no-repeat;
+    background-size: 105px;
+    height: 70px;
+}
+
+.notBingoStyle{
+    background-repeat: no-repeat;
+    background-size: 105px;
+    height: 70px;
 }
 </style>
 </head>
@@ -26,10 +48,13 @@
 	<div>
 		<table class="tableStyle">
 			<tr>
-				<td style="width:25%">
-					<p id="begin" class="numberStyle"></p></td>
-				<td style="width:50%" />
-				<td style="width:25%">
+				<td style="width:35%">
+					<p id="beginBingo" class="notBingoStyle"></p>
+					<p id="begin" class="numberStyle"></p>
+					</td>
+				<td style="width:30%" />
+				<td style="width:35%">
+					<p id="endBingo" class="notBingoStyle"></p>
 					<p id="end" class="numberStyle" ></p></td>
 			</tr>
 		</table>
@@ -40,12 +65,7 @@
 				<td><input onClick="enter();return false;" value="enter" type="button" /></td>
 			</tr>
 		</table>
-
-
 	</div>
-	
-	
-	
 	<div style="display:none">
 		<video
 	    id="my-player"
@@ -53,8 +73,7 @@
 	    controls
 	    preload="auto"
 	    data-setup='{}'>
-	  <source src="https://upos-hz-mirrorks3u.acgvideo.com/upgcxcode/30/58/6125830/6125830-1-16.mp4?e=ig8euxZM2rNcNbR1hwUVhoM1hWdBhwdEto8g5X10ugNcXBlqNxHxNEVE5XREto8KqJZHUa6m5J0SqE85tZvEuENvNC8xNEVE9EKE9IMvXBvE2ENvNCImNEVEK9GVqJIwqa80WXIekXRE9IMvXBvEuENvNCImNEVEua6m2jIxux0CkF6s2JZv5x0DQJZY2F8SkXKE9IB5QK==&amp;deadline=1544757192&amp;gen=playurl&amp;nbs=1&amp;oi=2006012618&amp;os=ks3u&amp;platform=pc&amp;trid=52637374e251427480dad33b7647d8be&amp;uipk=5&amp;upsig=8e81baf5699a5bada9745bd445ed5028" type="video/mp4"></source>
-	  <source src="/mp4/" type="video/mp4"></source>
+	   <source src="/mp4/bingo.mp3" type="video/mp4"></source>
 	  <p class="vjs-no-js">
 	    To view this video please enable JavaScript, and consider upgrading to a
 	    web browser that
@@ -79,13 +98,18 @@ var answer = Math.floor(Math.random() * (end - begin) + begin);
 console.log("answer:" + answer);
 updateBegin(begin);
 updateEnd(end);
+refreshCurrentRange();
 
 function updateBegin(newBegin){
 	begin = newBegin;
-	document.getElementById("begin").innerHTML = begin;
 }
+
 function updateEnd(newEnd){
 	end = newEnd;
+}
+
+function refreshCurrentRange(){
+	document.getElementById("begin").innerHTML = begin;
 	document.getElementById("end").innerHTML = end;
 }
 
@@ -95,31 +119,60 @@ function speakCurrentRange(){
 			WebSpeech.speak("至");
 			WebSpeech.onfinish = function () { 
 				WebSpeech.speak(end + "");
-				WebSpeech.onfinish = function () {};
+				WebSpeech.onfinish = function () {
+					refreshCurrentRange();
+					WebSpeech.onfinish = function (){};
+				};
 			};
 		};
 }
 
+function displayBingoStyle(){
+	var effectOn = false;
+	setInterval(function(){
+		if(effectOn){
+			document.getElementById("beginBingo").className="notBingoStyle";
+			document.getElementById("endBingo").className="notBingoStyle";
+			document.getElementById("begin").className="numberStyle";
+			document.getElementById("end").className="numberStyle";
+			effectOn = false;
+		}else{
+			document.getElementById("beginBingo").className="bingoStyle";
+			document.getElementById("endBingo").className="bingoStyle";
+			document.getElementById("begin").className="bingoNumberStyle";
+			document.getElementById("end").className="bingoNumberStyle";
+			effectOn = true;
+		}
+	}, 1000);
+	
+}
+
 function enter(){
 	var speakNum = parseInt(document.getElementById("speakNum").value.trim(), 10);
-	if(speakNum == answer){ // answer hit
-		var player = videojs('my-player');
-		player.play();
-		updateBegin(speakNum);
-		updateEnd(speakNum);
-		
-	}else{										// update range
-		if(speakNum > answer && speakNum < end){
-			updateEnd(speakNum);
-			speakCurrentRange();
-		}else if(speakNum < answer && speakNum > begin){
+	setTimeout(function(){
+		if(speakNum == answer){ // answer hit
 			updateBegin(speakNum);
-			speakCurrentRange();
-		}else{
-			WebSpeech.speak("数字必须在范围内");
+			updateEnd(speakNum);
+			refreshCurrentRange();
+			var player = videojs('my-player');
+			setTimeout(function(){
+				displayBingoStyle();
+				player.play();
+			}, 500);
+		}else{										// update range
+			if(speakNum > answer && speakNum < end){
+				updateEnd(speakNum);
+				speakCurrentRange();
+			}else if(speakNum < answer && speakNum > begin){
+				updateBegin(speakNum);
+				speakCurrentRange();
+			}else{
+				WebSpeech.speak("数字必须在范围内");
+			}
 		}
-	}
-	document.getElementById("speakNum").value = "";
+		document.getElementById("speakNum").value = "";
+	}, 1000);
+	
 }
 </script>
 </body>
