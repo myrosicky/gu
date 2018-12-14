@@ -1,0 +1,8 @@
+server:
+  port: 8099
+
+spring:
+  mvc:
+    view:
+      prefix: 
+      suffix: .html
