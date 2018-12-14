@@ -8,5 +8,7 @@
    
    ./mvnw spring-boot:run (linux)
    
+   or
+   
    ./mvnw.cmd spring-boot:run (windows)
 3. 当第2步执行完毕， 命令行会显示  Tomcat started on port(s): 8099 (http)， 此时打开浏览器，访问http://localhost:8099/  
