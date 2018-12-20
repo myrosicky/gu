@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>超级无敌开口中中中中</title>
+<link href="https://unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet">
+<script>window.HELP_IMPROVE_VIDEOJS = false;</script>
+<script src="https://unpkg.com/video.js/dist/video.min.js"></script>
+
+<script type='text/javascript'
+      src='/WebSpeech/WebSpeech.js'></script>
+<link rel="stylesheet" type="text/css" href="comm.css" /> 
+<style>
+.backgroundImg {
+    background-image: url(/img/paruru.jpg);
+}
+</style>
+</head>
+<body class="bodyStyle">
+
+	<div class="backgroundStyle backgroundImg">
+		<table class="tableStyle">
+			<tr>
+				<td style="width:35%">
+					<p id="begin" class="numberStyle"></p>
+					</td>
+				<td style="width:30%" />
+				<td style="width:35%; " class="rightTd">
+					<p id="end" class="numberStyle" ></p>
+					</td>
+			</tr>
+			<tr>
+				<td style="width:35%" class="speakForm">
+					speakNum:<input id="speakNum" value="" />
+					<input onClick="enter();return false;" value="enter" type="button" />
+					</td>
+				<td style="width:30%" />
+				<td style="width:35%">
+					</td>
+			</tr>
+		</table>
+	</div>
+	<div style="display:none">
+		<video
+	    id="my-player"
+	    class="video-js"
+	    controls
+	    preload="auto"
+	    data-setup='{}'>
+	   <source src="/mp4/AKB48-32nd.mp3" ></source>
+	  <p class="vjs-no-js">
+	    To view this video please enable JavaScript, and consider upgrading to a
+	    web browser that
+	    <a href="http://videojs.com/html5-video-support/" target="_blank">
+	      supports HTML5 video
+	    </a>
+	  </p>
+	</video>
+	</div>
+<script type='text/javascript' src="comm.js"></script>
+
+</body>
+</html>

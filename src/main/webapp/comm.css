@@ -1,0 +1,113 @@
+.bodyStyle{
+	height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.tableStyle {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+
+.rightTd {
+	text-align: -moz-right;
+	text-align: -webkit-right;
+}
+
+.numberStyle {
+	border-style: solid;
+	border-width: thick;
+	font-size: 180px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	color: white;
+	border-radius: 50%;
+	height: 340px;
+	width: 340px;
+	line-height: 340px;
+	text-align: center;
+}
+
+.bingoNumberStyle {
+	border-style: solid;
+	border-width: thick;
+	font-size: 180px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	color: yellow;
+	border-radius: 50%;
+	height: 340px;
+	width: 340px;
+	line-height: 340px;
+	text-align: center;
+}
+
+/*
+.bingoStyle{
+    background-image: url("/img/crown.jpeg");
+    background-repeat: no-repeat;
+    background-size: 105px;
+    height: 70px;
+}
+*/
+.notBingoStyle {
+	background-repeat: no-repeat;
+	background-size: 105px;
+	height: 70px;
+}
+
+.backgroundStyle {
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+}
+
+.speakForm {
+	text-align: left;
+	vertical-align: bottom;
+}
+
+.rotateActionStyle{
+	animation: rotate-x 0.4s;
+    -moz-animation: rotate-x 0.4s;  /* Firefox */
+    -webkit-animation: rotate-x 0.4s;   /* Safari 和 Chrome */
+    -o-animation: rotate-x 0.4s;    /* Opera */
+}
+
+@keyframes rotate-x {
+    50% {
+        transform: scaleX(0);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+/*  IE  */
+@-ms-keyframes rotate-x {
+    50% {
+        -ms-transform: scaleX(0);
+    }
+    100% {
+        -ms-transform: scaleX(1);
+    }
+}
+/* Safari and Chrome*/
+@-webkit-keyframes rotate-x {
+    50% {
+        -webkit-transform: scaleX(0);
+    }
+    100% {
+        -webkit-transform: scaleX(1);
+    }
+}
+/* Firefox  */
+@-moz-keyframes rotate-x {
+    50% {
+        -moz-transform: scaleX(0);
+    }
+    100% {
+        -moz-transform: scaleX(1);
+    }
+}
