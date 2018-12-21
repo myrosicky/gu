@@ -24,7 +24,6 @@ function refreshCurrentRange(){
 }
 
 function refreshBeginComponent(){
-	console.log("refreshBeginComponent");
 	var beginObj = document.getElementById("begin");
 	beginObj.className = beginObj.className.replace("rotateActionStyle", "");
 	setTimeout(function(){
@@ -35,7 +34,6 @@ function refreshBeginComponent(){
 }
 
 function refreshEndComponent(){
-	console.log("refreshEndComponent");
 	var endObj = document.getElementById("end");
 	endObj.className = endObj.className.replace("rotateActionStyle", "");
 	setTimeout(function(){
@@ -86,7 +84,13 @@ function enter(){
 	}else{
 		enterProcessing = true;
 	}
-	var speakNum = parseInt(document.getElementById("speakNum").value.trim(), 10);
+	var text = document.getElementById("speakNum").value.trim();
+	if(text == undefined || text == null || text.length==0){
+		enterProcessing = false;
+		return;
+	}
+	var speakNum = parseInt(text, 10);
+	
 	setTimeout(function(){
 		if(speakNum == answer){ // answer hit
 			updateBegin(speakNum);

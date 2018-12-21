@@ -43,14 +43,6 @@
 	text-align: center;
 }
 
-/*
-.bingoStyle{
-    background-image: url("/img/crown.jpeg");
-    background-repeat: no-repeat;
-    background-size: 105px;
-    height: 70px;
-}
-*/
 .notBingoStyle {
 	background-repeat: no-repeat;
 	background-size: 105px;
@@ -78,6 +70,7 @@
 @keyframes rotate-x {
     50% {
         transform: scaleX(0);
+        background-color: red;
     }
     100% {
         transform: scaleX(1);
@@ -88,6 +81,7 @@
 @-ms-keyframes rotate-x {
     50% {
         -ms-transform: scaleX(0);
+        background-color: red;
     }
     100% {
         -ms-transform: scaleX(1);
@@ -97,6 +91,7 @@
 @-webkit-keyframes rotate-x {
     50% {
         -webkit-transform: scaleX(0);
+        background-color: red;
     }
     100% {
         -webkit-transform: scaleX(1);
@@ -106,6 +101,7 @@
 @-moz-keyframes rotate-x {
     50% {
         -moz-transform: scaleX(0);
+        background-color: red;
     }
     100% {
         -moz-transform: scaleX(1);
