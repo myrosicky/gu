@@ -88,7 +88,7 @@ function playHeartbeat(callBackFunc){
 	var player = videojs('my-player');
 	var originalSrc = player.src();
 	var originalVolume = player.volume();
-	player.src('http://img.tukuppt.com/preview_music/00/03/15/preview-5b835c9543dfb4039.mp3');
+	player.src('/mp4/heartbeat.mp3');
 	player.volume(30); 
 	player.ready(function() {
 		player.play();
@@ -119,12 +119,17 @@ function enter(){
 			updateBegin(speakNum);
 			updateEnd(speakNum);
 			refreshCurrentRange();
-			var player = videojs('my-player');
+			var musicPlayer = videojs('my-player');
+			var moviePlayer = videojs('my-player2');
 			setTimeout(function(){
+				moviePlayer.ready(function() {
+					moviePlayer.muted(true);
+					moviePlayer.play();
+				});
 				displayBingoStyle();
-				player.ready(function() {
-					player.volume(0.5); 
-					player.play();
+				musicPlayer.ready(function() {
+					musicPlayer.volume(0.5); 
+					musicPlayer.play();
 				});
 			}, 500);
 		}else{										// update range

@@ -12,12 +12,14 @@
 <link rel="stylesheet" type="text/css" href="comm.css" /> 
 <style>
 .backgroundImg {
-    background-image: url(/img/sakura.jpg);
+    //background-image: url(/img/sakura.jpg);
 }
 
 .numberStyleExt{
 	margin-top: 110px;
 }
+
+
 </style>
 </head>
 <body class="bodyStyle">
@@ -44,6 +46,20 @@
 					</td>
 			</tr>
 		</table>
+		<video
+		    id="my-player2"
+		    class="video-js backgroundVideo"
+		    preload="auto"
+		    data-setup='{}'>
+		   <source src="/mp4/sakura.mp4" ></source>
+		  <p class="vjs-no-js">
+		    To view this video please enable JavaScript, and consider upgrading to a
+		    web browser that
+		    <a href="http://videojs.com/html5-video-support/" target="_blank">
+		      supports HTML5 video
+		    </a>
+		  </p>
+		</video>
 	</div>
 	<div style="display:none">
 		<video
