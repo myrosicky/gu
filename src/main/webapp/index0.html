@@ -13,7 +13,7 @@
 <style>
 
 .backgroundImg {
-    background-image: url(/img/background.jpeg);
+    //background-image: url(/img/background.jpeg);
 }
 
 </style>
@@ -43,16 +43,45 @@
 					</td>
 			</tr>
 		</table>
-
+		<video
+		    id="my-player2"
+		    class="video-js backgroundVideo"
+		    muted=true
+		    preload="auto"
+		    data-setup='{}'>
+		   <source src="/mp4/sashi.mp4" ></source>
+		  <p class="vjs-no-js">
+		    To view this video please enable JavaScript, and consider upgrading to a
+		    web browser that
+		    <a href="http://videojs.com/html5-video-support/" target="_blank">
+		      supports HTML5 video
+		    </a>
+		  </p>
+		</video>
 	</div>
 	<div style="display:none">
-		<video
+	<video
 	    id="my-player"
 	    class="video-js"
 	    controls
 	    preload="auto"
 	    data-setup='{}'>
 	   <source src="/mp4/AKB48-43rd.mp3" ></source>
+	  <p class="vjs-no-js">
+	    To view this video please enable JavaScript, and consider upgrading to a
+	    web browser that
+	    <a href="http://videojs.com/html5-video-support/" target="_blank">
+	      supports HTML5 video
+	    </a>
+	  </p>
+	</video>
+	<video
+	    id="my-player3"
+	    class="video-js"
+	    controls
+	    preload="auto"
+	    data-setup='{}'>
+	   <source src="/mp4/heartbeat.mp3" ></source>
 	  <p class="vjs-no-js">
 	    To view this video please enable JavaScript, and consider upgrading to a
 	    web browser that

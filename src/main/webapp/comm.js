@@ -85,17 +85,17 @@ function mute(isMute){
 }
 
 function playHeartbeat(callBackFunc){
-	var player = videojs('my-player');
-	var originalSrc = player.src();
-	var originalVolume = player.volume();
-	player.src('/mp4/heartbeat.mp3');
+	var player = videojs('my-player3');
+	//var originalSrc = player.src();
+	//var originalVolume = player.volume();
+	//player.src('/mp4/heartbeat.mp3');
 	player.volume(30); 
 	player.ready(function() {
 		player.play();
 		setTimeout(function(){
 			player.pause();
-			player.src(originalSrc);
-			player.volume(originalVolume); 
+			//player.src(originalSrc);
+			//player.volume(originalVolume); 
 			callBackFunc();
 		}, 4000);
 	});
@@ -123,7 +123,7 @@ function enter(){
 			var moviePlayer = videojs('my-player2');
 			setTimeout(function(){
 				moviePlayer.ready(function() {
-					moviePlayer.muted(true);
+					//moviePlayer.muted(true);
 					moviePlayer.play();
 				});
 				displayBingoStyle();

@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="comm.css" /> 
 <style>
 .backgroundImg {
-    background-image: url(/img/sakuraandjurina.png);
+    //background-image: url(/img/sakuraandjurina.png);
 }
 
 .numberStyleExt{
@@ -44,15 +44,45 @@
 					</td>
 			</tr>
 		</table>
+		<video
+		    id="my-player2"
+		    class="video-js backgroundVideo"
+		    preload="auto"
+		    data-setup='{}'>
+		   <source src="/mp4/all2.mp4" ></source>
+		  <p class="vjs-no-js">
+		    To view this video please enable JavaScript, and consider upgrading to a
+		    web browser that
+		    <a href="http://videojs.com/html5-video-support/" target="_blank">
+		      supports HTML5 video
+		    </a>
+		  </p>
+		</video>
 	</div>
 	<div style="display:none">
 		<video
 	    id="my-player"
 	    class="video-js"
 	    controls
+	    muted=true
 	    preload="auto"
 	    data-setup='{}'>
 	   <source src="/mp4/NMB48-13th.mp3" ></source>
+	  <p class="vjs-no-js">
+	    To view this video please enable JavaScript, and consider upgrading to a
+	    web browser that
+	    <a href="http://videojs.com/html5-video-support/" target="_blank">
+	      supports HTML5 video
+	    </a>
+	  </p>
+	</video>
+		<video
+	    id="my-player3"
+	    class="video-js"
+	    controls
+	    preload="auto"
+	    data-setup='{}'>
+	   <source src="/mp4/heartbeat.mp3" ></source>
 	  <p class="vjs-no-js">
 	    To view this video please enable JavaScript, and consider upgrading to a
 	    web browser that
