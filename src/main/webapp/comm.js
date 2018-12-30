@@ -78,9 +78,14 @@ function displayBingoStyle(){
 }
 
 function mute(isMute){
-	var player = videojs('my-player');
-	player.ready(function() {
-		player.muted(isMute);
+//	var player = videojs('my-player');
+//	player.ready(function() {
+//		player.muted(isMute);
+//	});
+	
+	var player2 = videojs('my-player2');
+	player2.ready(function() {
+		player2.muted(isMute);
 	});
 }
 
@@ -102,8 +107,10 @@ function playHeartbeat(callBackFunc){
 }
 
 var enterProcessing = false;
-function enter(){
+function enter(btnObj){
+	btnObj.disabled="disabled";
 	if(enterProcessing){
+		btnObj.disabled=false;
 		return;
 	}else{
 		enterProcessing = true;
@@ -111,6 +118,7 @@ function enter(){
 	var text = document.getElementById("speakNum").value.trim();
 	if(text == undefined || text == null || text.length==0){
 		enterProcessing = false;
+		btnObj.disabled=false;
 		return;
 	}
 	var speakNum = parseInt(text, 10);
@@ -145,5 +153,6 @@ function enter(){
 		}
 		document.getElementById("speakNum").value = "";
 		enterProcessing = false;
+		btnObj.disabled=false;
 	});
 }

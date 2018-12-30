@@ -35,7 +35,7 @@
 			<tr>
 				<td style="width:35%" class="speakForm">
 						speakNum:<input id="speakNum" value="" />
-						<input onClick="enter();return false;" value="enter" type="button" />
+						<input onClick="enter(this);return false;" value="enter" type="button" />
 						<input onClick="mute(this.checked);" id="muteCB" type="checkbox" /><label for="muteCB" >mute</label>
 					</td>
 				<td style="width:30%" />
@@ -46,7 +46,6 @@
 		<video
 		    id="my-player2"
 		    class="video-js backgroundVideo"
-		    muted=true
 		    preload="auto"
 		    data-setup='{}'>
 		   <source src="/mp4/sashi.mp4" ></source>
@@ -64,6 +63,7 @@
 	    id="my-player"
 	    class="video-js"
 	    controls
+	    muted=true
 	    preload="auto"
 	    data-setup='{}'>
 	   <source src="/mp4/AKB48-43rd.mp3" ></source>
