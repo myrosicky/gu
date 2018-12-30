@@ -98,7 +98,7 @@ function playHeartbeat(callBackFunc){
 	player.ready(function() {
 		player.play();
 		setTimeout(function(){
-			player.pause();
+			//player.pause();
 			//player.src(originalSrc);
 			//player.volume(originalVolume); 
 			callBackFunc();
