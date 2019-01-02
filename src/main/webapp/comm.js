@@ -3,12 +3,39 @@ WebSpeech.ready(function() {
     WebSpeech.setVoice('EkhoCantonese');
   });
   
- 
+var bingoIntervalJob;
+var bingoEffectOn;
 var end = 100;
 var begin = 0;
-var answer = Math.floor(Math.random() * ((end-1) - (begin+1)) + (begin+1));
-console.log("answer:" + answer);
-refreshCurrentRange();
+var answer = 1;
+var totalMp4 = 5;
+var currentMp4 = 0;
+init();
+function init(){
+	if(bingoIntervalJob != undefined && bingoIntervalJob != null){
+		window.clearInterval(bingoIntervalJob);
+	}
+	bingoEffectOn = false;
+	var beginStyle = document.getElementById("begin").className;
+	var endStyle = document.getElementById("end").className;
+	beginStyle = beginStyle.replace('bingoNumberStyle', ' ');
+	endStyle = endStyle.replace('bingoNumberStyle', ' ');
+	document.getElementById("begin").className = beginStyle;
+	document.getElementById("end").className = endStyle;
+	
+	document.getElementById("enterBtn").disabled = false;
+	document.getElementById("nextGameBtn").disabled = "disabled";
+	
+	end = 100;
+	begin = 0;
+	answer = Math.floor(Math.random() * ((end-1) - (begin+1)) + (begin+1));
+	console.log("answer:" + answer);
+	refreshCurrentRange();
+
+	var tmpPlayer2 = videojs('my-player2');
+	currentMp4 = (currentMp4+1) % totalMp4;
+	tmpPlayer2.src('./mp4/' + currentMp4 + '.mp4');
+}
 
 function updateBegin(newBegin){
 	begin = newBegin;
@@ -49,7 +76,10 @@ function speakCurrentRange(callBackFunc){
 			WebSpeech.onfinish = function () { 
 				WebSpeech.speak(end + "");
 				WebSpeech.onfinish = function () {
-					callBackFunc();
+					if(callBackFunc != undefined && callBackFunc != null){
+						callBackFunc();
+					}
+					
 					WebSpeech.onfinish = function (){};
 				};
 			};
@@ -57,19 +87,18 @@ function speakCurrentRange(callBackFunc){
 }
 
 function displayBingoStyle(){
-	var effectOn = false;
 	var beginStyle = document.getElementById("begin").className;
 	var endStyle = document.getElementById("end").className;
 	
-	setInterval(function(){
-		if(effectOn){
-			beginStyle = beginStyle.replace("bingoNumberStyle", ' ');
-			endStyle = endStyle.replace("bingoNumberStyle", ' ');
-			effectOn = false;
+	bingoIntervalJob = setInterval(function(){
+		if(bingoEffectOn){
+			beginStyle = beginStyle.replace('bingoNumberStyle', ' ');
+			endStyle = endStyle.replace('bingoNumberStyle', ' ');
+			bingoEffectOn = false;
 		}else{
 			beginStyle += " bingoNumberStyle" ;
 			endStyle += " bingoNumberStyle" ;
-			effectOn = true;
+			bingoEffectOn = true;
 		}
 		document.getElementById("begin").className = beginStyle;
 		document.getElementById("end").className = endStyle;
@@ -127,7 +156,7 @@ function enter(btnObj){
 			updateBegin(speakNum);
 			updateEnd(speakNum);
 			refreshCurrentRange();
-			var musicPlayer = videojs('my-player');
+			//var musicPlayer = videojs('my-player');
 			var moviePlayer = videojs('my-player2');
 			setTimeout(function(){
 				moviePlayer.ready(function() {
@@ -135,10 +164,12 @@ function enter(btnObj){
 					moviePlayer.play();
 				});
 				displayBingoStyle();
-				musicPlayer.ready(function() {
-					musicPlayer.volume(0.5); 
-					musicPlayer.play();
-				});
+//				musicPlayer.ready(function() {
+//					musicPlayer.volume(0.5); 
+//					musicPlayer.play();
+//				});
+				btnObj.disabled = "disabled";
+				document.getElementById("nextGameBtn").disabled = false;
 			}, 500);
 		}else{										// update range
 			if(speakNum > answer && speakNum < end){
