@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>control panel</title>
+</head>
+<body >
+
+	<input id="speakNum" value="" />
+						<input onClick="setNum();return false;" value="enter" id="enterBtn" type="button" />
+						<input onClick="setMute(this.checked);" id="muteCB" type="checkbox" /><label for="muteCB" >mute</label>
+						<input onClick="setNextGame();return false;" id="nextGameBtn" value="next game" type="button" />
+						
+<script type='text/javascript' >
+
+document.getElementById("speakNum").addEventListener("keypress", function(e) {
+	 
+	if (e.keyCode == "13") {
+		setNum();
+    }
+ 
+}, false);
+
+function setNum(){
+	var speakNum = document.getElementById("speakNum").value.trim();
+	if(speakNum == undefined || speakNum == null || speakNum.length == 0){
+		return;
+	}
+	var xmlhttp;
+	var data;
+
+	if(window.XMLHttpRequest){ //Mozilla chrome
+	  xmlhttp = new XMLHttpRequest();
+
+	}else if(window.ActiveXObject) { //IE浏览器
+	  try{
+	      xmlhttp = new ActiveXObject("Msxml2.XMLHTTP"); 
+	  }catch(e){
+	      try {
+	          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); 
+	      }catch(e){}
+	  }
+	}
+	
+	xmlhttp.open("POST", "/setNumber?number="+speakNum, true);
+	xmlhttp.onload = function(){
+			if (xmlhttp.readyState == 4) {
+				 if (xmlhttp.status ==200) {
+					 document.getElementById("speakNum").value = "";
+              	}
+			}
+		};
+	xmlhttp.send(data);
+}
+
+function setMute(isMute){
+	var xmlhttp;
+	var data;
+
+	if(window.XMLHttpRequest){ //Mozilla chrome
+	  xmlhttp = new XMLHttpRequest();
+
+	}else if(window.ActiveXObject) { //IE浏览器
+	  try{
+	      xmlhttp = new ActiveXObject("Msxml2.XMLHTTP"); 
+	  }catch(e){
+	      try {
+	          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); 
+	      }catch(e){}
+	  }
+	}
+	xmlhttp.open("POST", "/setMute?mute="+isMute, true);
+	xmlhttp.onload = function(){
+			if (xmlhttp.readyState == 4) {
+				 if (xmlhttp.status ==200) {
+              }
+			}
+		};
+	xmlhttp.send(data);
+}
+
+function setNextGame(){
+	var xmlhttp;
+	var data;
+
+	if(window.XMLHttpRequest){ //Mozilla chrome
+	  xmlhttp = new XMLHttpRequest();
+
+	}else if(window.ActiveXObject) { //IE浏览器
+	  try{
+	      xmlhttp = new ActiveXObject("Msxml2.XMLHTTP"); 
+	  }catch(e){
+	      try {
+	          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); 
+	      }catch(e){}
+	  }
+	}
+	xmlhttp.open("POST", "/setNextGame?nextGame=true", true);
+	xmlhttp.onload = function(){
+			if (xmlhttp.readyState == 4) {
+				 if (xmlhttp.status ==200) {
+              	 }
+			}
+		};
+	xmlhttp.send(data);
+}
+</script>
+
+</body>
+</html>

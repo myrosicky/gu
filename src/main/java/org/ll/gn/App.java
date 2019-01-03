@@ -1,15 +1,16 @@
 package org.ll.gn;
 
-import java.util.concurrent.TimeUnit;
+import java.io.Serializable;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.http.CacheControl;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Hello world!
@@ -24,14 +25,68 @@ public class App
     	SpringApplication.run(App.class, args);
     }
     
-    private int total = 5;
-    private int current = 0;
-    
-    @GetMapping("/")
-    public String index(HttpServletResponse response){
-    	response.addHeader("Cache-Control", CacheControl.maxAge(0, TimeUnit.SECONDS).noCache().noStore().getHeaderValue());
-    	return "index" + ((current++ ) % total);
+    class Data implements Serializable{
+	    private String number;
+	    private boolean mute;
+	    private boolean nextGame;
+		public String getNumber() {
+			return number;
+		}
+		public void setNumber(String number) {
+			this.number = number;
+		}
+		public boolean isMute() {
+			return mute;
+		}
+		public void setMute(boolean mute) {
+			this.mute = mute;
+		}
+		public boolean isNextGame() {
+			return nextGame;
+		}
+		public void setNextGame(boolean nextGame) {
+			this.nextGame = nextGame;
+		}
     }
     
+    private Data data;
+    
+    @GetMapping("/")
+    public String index(){
+    	data = new Data();
+    	data.setNumber("0");
+    	data.setMute(false);
+    	data.setNextGame(false);
+    	return "index";
+    }
+    
+    @GetMapping("/control")
+    public String controlPanel(HttpServletResponse response){
+    	return "controlPanel";
+    }
+    
+    @GetMapping("/getData")
+    @ResponseBody
+    public Data getData(){
+    	return data;
+    }
+    
+    @PostMapping("/setNumber")
+    @ResponseBody
+    public void setNumber(@RequestParam String number){
+    	data.setNumber(number);
+    }
+    
+    @PostMapping("/setMute")
+    @ResponseBody
+    public void setMute(@RequestParam Boolean mute){
+    	data.setMute(mute);
+    }
+    
+    @PostMapping("/setNextGame")
+    @ResponseBody
+    public void setNextGame(@RequestParam Boolean nextGame){
+    	data.setNextGame(nextGame);
+    }
     
 }

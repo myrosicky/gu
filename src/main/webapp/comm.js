@@ -23,9 +23,6 @@ function init(){
 	document.getElementById("begin").className = beginStyle;
 	document.getElementById("end").className = endStyle;
 	
-	document.getElementById("enterBtn").disabled = false;
-	document.getElementById("nextGameBtn").disabled = "disabled";
-	
 	end = 100;
 	begin = 0;
 	answer = Math.floor(Math.random() * ((end-1) - (begin+1)) + (begin+1));
@@ -35,7 +32,88 @@ function init(){
 	var tmpPlayer2 = videojs('my-player2');
 	currentMp4 = (currentMp4+1) % totalMp4;
 	tmpPlayer2.src('./mp4/' + currentMp4 + '.mp4');
+	
+	setInterval(ajaxGetInputNumber, 500);
 }
+var prevInputNum = "0";
+var prevMute = "0";
+var prevNextGame = false;
+function ajaxGetInputNumber(){
+	var xmlhttp;
+	var data;
+
+	if(window.XMLHttpRequest){ //Mozilla chrome
+	  xmlhttp = new XMLHttpRequest();
+
+	}else if(window.ActiveXObject) { //IE浏览器
+	  try{
+	      xmlhttp = new ActiveXObject("Msxml2.XMLHTTP"); 
+	  }catch(e){
+	      try {
+	          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); 
+	      }catch(e){}
+	  }
+	}
+	xmlhttp.open("GET", "/getData", true);
+	xmlhttp.onload = function(){
+		
+			if (xmlhttp.readyState == 4) {
+				 if (xmlhttp.status ==200) {
+
+					 var dataJson = xmlhttp.responseText;
+					 var data = JSON.parse(dataJson);
+					 var inputNum = data.number;
+					 if(inputNum != undefined && inputNum != null && inputNum != "0" &&  inputNum != prevInputNum){
+						 
+						 enter(inputNum);
+						 prevInputNum = inputNum;
+					 }
+					 
+					 var isMute = data.mute;
+					 if(isMute != undefined && isMute != null && isMute != prevMute){
+						 mute(isMute);
+						 prevMute = isMute;
+					 }
+					 
+					 var nextGame = data.nextGame;
+					 if(nextGame != undefined && nextGame != null && nextGame != prevNextGame ){
+						 if(nextGame){
+							 init();
+							 var xmlhttp2;
+								var data2;
+
+								if(window.XMLHttpRequest){ //Mozilla chrome
+								  xmlhttp2 = new XMLHttpRequest();
+
+								}else if(window.ActiveXObject) { //IE浏览器
+								  try{
+								      xmlhttp2 = new ActiveXObject("Msxml2.xmlhttp2"); 
+								  }catch(e){
+								      try {
+								          xmlhttp2 = new ActiveXObject("Microsoft.xmlhttp2"); 
+								      }catch(e){}
+								  }
+								}
+								xmlhttp2.open("POST", "/setNextGame?nextGame=false", true);
+								xmlhttp2.onload = function(){
+										if (xmlhttp2.readyState == 4) {
+											 if (xmlhttp2.status ==200) {
+												 
+												 
+							              	 }
+										}
+									};
+								xmlhttp2.send(data2);
+						 }
+						 prevNextGame = nextGame;
+					 }
+              }
+			}
+		};
+	xmlhttp.send(data);
+}
+
+
 
 function updateBegin(newBegin){
 	begin = newBegin;
@@ -136,18 +214,15 @@ function playHeartbeat(callBackFunc){
 }
 
 var enterProcessing = false;
-function enter(btnObj){
-	btnObj.disabled="disabled";
+function enter(text){
 	if(enterProcessing){
-		btnObj.disabled=false;
 		return;
 	}else{
 		enterProcessing = true;
 	}
-	var text = document.getElementById("speakNum").value.trim();
+	//var text = document.getElementById("speakNum").value.trim();
 	if(text == undefined || text == null || text.length==0){
 		enterProcessing = false;
-		btnObj.disabled=false;
 		return;
 	}
 	var speakNum = parseInt(text, 10);
@@ -168,8 +243,7 @@ function enter(btnObj){
 //					musicPlayer.volume(0.5); 
 //					musicPlayer.play();
 //				});
-				btnObj.disabled = "disabled";
-				document.getElementById("nextGameBtn").disabled = false;
+				//document.getElementById("nextGameBtn").disabled = false;
 			}, 500);
 		}else{										// update range
 			if(speakNum > answer && speakNum < end){
@@ -182,8 +256,7 @@ function enter(btnObj){
 				WebSpeech.speak("数字必须在范围内");
 			}
 		}
-		document.getElementById("speakNum").value = "";
+		//document.getElementById("speakNum").value = "";
 		enterProcessing = false;
-		btnObj.disabled=false;
 	});
 }
