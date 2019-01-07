@@ -17,4 +17,4 @@
        在windows下：
    
    mvnw.cmd spring-boot:run 
-3. 当第2步执行完毕， 命令行会显示  Tomcat started on port(s): 8099 (http)， 此时打开浏览器，访问http://localhost:8099/  
+3. 当第2步执行完毕， 命令行会显示  Tomcat started on port(s): 8099 (http)， 此时打开浏览器，访问http://localhost:8099/  。 另外访问http://localhost:8099/control 进入控制面板。
