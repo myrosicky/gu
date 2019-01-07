@@ -8,7 +8,7 @@ var bingoEffectOn;
 var end = 100;
 var begin = 0;
 var answer = 1;
-var totalMp4 = 5;
+var totalMp4 = 7;
 var currentMp4 = 0;
 init();
 function init(){
